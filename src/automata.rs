@@ -39,18 +39,15 @@ impl Automata {
             for iter in 0..ALPHABET_LEN {
                if row_no != pattern_len && iter as u8 as char == pattern_bytes[row_no] as char {
                     row[iter] = row_no+1;
-                }
-                else {
+                } else {
                     prefix_string.push(iter as u8 as char);
                     row[iter] = Self::sufix(&pattern, &prefix_string);
                     prefix_string.pop();
                 }
-                //print!("{}", row[iter]);
             }
             if row_no < pattern_len {
                 prefix_string.push(pattern_bytes[row_no] as char);
             }
-            //println!();
             delta_create.push(row.clone());
         }
         Self {
@@ -64,11 +61,13 @@ impl Automata {
         let mut state: usize = 0;
         let mut result_vector: Vec<usize> = Vec::<usize>::new();
         for (iter,val) in text_bytes.iter().enumerate() {
-            if (*val) as usize <= 127 {
+            if (*val) as usize <= ALPHABET_LEN-1 {
                 state = self.delta[state][(*val) as usize];
                 if state == self.pattern_len {
                     result_vector.push((iter as i32 - self.pattern_len as i32 + 1) as usize);
                 }
+            } else {
+                state = 0;
             }
         }
         if result_vector.len() > 0 {

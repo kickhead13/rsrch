@@ -1,6 +1,6 @@
 use std::fs;
-use crate::automata::Automata;
 use crate::cl_handler::ExecMode;
+use crate::format_print;
 
 #[derive(PartialEq)]
 pub enum FileType {
@@ -48,31 +48,10 @@ pub fn recursion_search(mode: &ExecMode, path: &String, pattern: &String) -> () 
     if let Some(file_paths) = list_(File, path.to_string()) {
         for path in file_paths.to_vec().iter() {
             if mode == &ExecMode::Name  {
-                if let Some((vec,_)) =
-                    Automata::new(pattern.to_string())
-                        .eval(path.to_string())
-                {
-                    print!("{} ", path);
-                    for pos in vec {
-                        print!("{} ", pos);
-                    }
-                    println!();
-                }
+                format_print(&pattern, &path, &path);
             } else if mode == &ExecMode::Content {
-                if let Ok(file_content) = 
-                    fs::read_to_string(path)
-                {
-
-                    if let Some((vec, _)) =
-                        Automata::new(pattern.to_string())
-                            .eval(file_content) 
-                    {
-                        print!("found in {} at ", path);
-                        for pos in vec {
-                            print!("{} ", pos);
-                        }
-                        println!();
-                    }
+                if let Ok(file_content) = fs::read_to_string(path) {
+                    format_print(&pattern, &file_content, &path);
                 }
             }
         }
@@ -82,16 +61,7 @@ pub fn recursion_search(mode: &ExecMode, path: &String, pattern: &String) -> () 
 
         for path in dir_paths.to_vec().iter() {
             if mode == &ExecMode::Name  {
-                if let Some((vec,_)) =
-                    Automata::new(pattern.to_string())
-                        .eval(path.to_string())
-                {
-                    print!("{} ", path);
-                    for pos in vec {
-                        print!("{} ", pos);
-                    }
-                    println!();
-                }
+                format_print(&pattern, &path, &path);
             }
             recursion_search(mode, path, pattern);
         }

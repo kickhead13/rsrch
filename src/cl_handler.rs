@@ -19,53 +19,44 @@ pub fn print_help() -> () {
     println!("                                           the program will search;");
     println!("                                           current directory by");
     println!("                                           default");
+    println!("   -p,  --parallelize                      parallelize file search");
     println!();
     println!("EXIT STATUS:");
     println!("0 if OK");
     println!("1 if search mode is incorrect");
 }
 
-pub fn handle(args: Vec<String>) -> (ExecMode, String, String, bool, bool) {
+pub fn handle_cl_args(args: Vec<String>) -> (ExecMode, String, String, bool, bool) {
     let mut help_mess = false;
     let mut mode: ExecMode = ExecMode::Name;
     let mut pattern_found = false;
-    let mut pattern: String = "".to_string();
+    let mut pattern: String = "aaa".to_string();
     let mut last_arg: String = "".to_string();
-    let mut directory_path: String = "".to_string();
+    let mut directory_path: String = "./".to_string();
     let mut parallelize: bool = false;
     for (pos, arg) in args.iter().enumerate() {
-        
         if pos == 0 {
             if arg == "content" {
-                //print!("lol");
                 mode = ExecMode::Content;
-            }
-            else {
+            } else {
                 mode = ExecMode::Name;
             }
-        }
-        else {
+        } else {
             if arg == "-h" || arg == "--help" {
                 help_mess = true;
-            }
-            else if arg == "-p" || arg == "--parallelize" {
+            } else if arg == "-p" || arg == "--parallelize" {
                 parallelize = true;
-            }
-            else if last_arg == "-d" || last_arg == "--directory" {
+            } else if last_arg == "-d" || last_arg == "--directory" {
                 directory_path = arg.to_string();
-            }
-            else if pattern_found == false && arg.to_string().starts_with("-") == false {
-                //print!("lol2 {}", arg);
+            } else if pattern_found == false && arg.to_string().starts_with("-") == false {
                 pattern_found = true;
                 pattern = arg.to_string();
-            }
-            else if arg != "-d" && arg != "--directory" {
+            } else if arg != "-d" && arg != "--directory" {
                 return (ExecMode::Error, "".to_string(), "".to_string(), true, true);
             }
         }
         last_arg = arg.to_string();
     }
-
     return (mode, pattern, directory_path, help_mess, parallelize);
 }
 
