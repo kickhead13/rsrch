@@ -15,6 +15,12 @@
 In both cases it returns both the file path for which it matched the string given, and the byte position of the string withing the file or the file path.
 By default the search is done linearly by the program, but by adding the ```-p``` or ```--parallelize``` arguments the search can be parallelized.
 
+## Why rsrch
+in addition to there always being use for file finding programs for operating systems, `rsrch` provides an opportunity to combine some of my favorite chapters of computer science. Those being:
+  - finite automata
+  - multi-threading
+  - Rust
+
 ## Run
 To run the program it is only neccessary to clone this repo, build the cargo, and then run the released executable.
 ```
