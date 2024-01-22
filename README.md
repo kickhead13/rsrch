@@ -20,6 +20,7 @@ in addition to there always being use for file finding programs for operating sy
   - finite automata
   - multi-threading
   - Rust
+Finite automata are a good match for the solution given by this program, since strings can be matched in linear time giving a blazingly fast runtime. The runtime is also aided by the multi-threading functionalities and optimized execution time of the Rust programming language.
 
 ## Run
 To run the program it is only neccessary to clone this repo, build the cargo, and then run the released executable.
