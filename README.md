@@ -39,5 +39,5 @@ Then it recursively looks through the directories annd matches either the file n
 ```rs
 pub fn recursion_search(mode: &ExecMode, path: &String, pattern: &String) -> ();
 ```
-The parallelization is only on the first level of the path tree, meaning there is a thread assigned for each subdirectory of the directory where the search starts. This implementation is not yet CPU specific meaning it doesn't take in account the number of cores available for the system. This might mean that for certain directory structures the parallelized search could be slower.
+The parallelization is only on the first level of the path tree, meaning there is a thread assigned for each direct subdirectory of the directory where the search starts, and that's it. No more parallelization. This implementation is also not CPU specific yet, meaning it doesn't take into account the number of cores available for the system. This might mean that for certain directory structures the parallelized search could be slower.
 Also, while searching through file contents, if encountering files too big, the program might crash as of current version. This is due to there not being a buffered read of files yet implemented.
