@@ -3,12 +3,12 @@
   - the file path name
     ```sh
     $ rsrch name text
-    /home/user/Desktop/text 19
+    found in /home/user/Desktop/text at 19
     ```
   - file contents
     ```sh
     $ rsrch name text
-    found /home/user/Desktop/file at 0
+    found in /home/user/Desktop/file at 0
     $ cat /home/user/Desktop/file
     text
     ```
