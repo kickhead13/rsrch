@@ -1,12 +1,12 @@
 # rsrch
 `rsrch` is a multi-threaded file finder utility program for Linux systems, written in Rust. It looks up files containing a specified text in:
   - the file path name
-    ```
+    ```sh
     $ rsrch name text
     /home/user/Desktop/text 19
     ```
   - file contents
-    ```
+    ```sh
     $ rsrch name text
     found /home/user/Desktop/file at 0
     $ cat /home/user/Desktop/file
@@ -25,7 +25,7 @@ Finite automata are a good match for the solution given by this program, since s
 
 ## Run
 To run the program it is only neccessary to clone this repo, build the cargo, and then run the released executable.
-```
+```sh
 $ git clone https://github.com/kickhead13/rsrch.git
 $ cd rsrch
 $ cargo build --release
