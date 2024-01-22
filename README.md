@@ -1,5 +1,5 @@
 # rsrch
-'''rsrch''' is a multi-threaded file finder utility program for Linux systems, written in Rust. It looks up files containing a specified text in:
+`rsrch` is a multi-threaded file finder utility program for Linux systems, written in Rust. It looks up files containing a specified text in:
   - the file path name
     ```
     $ rsrch name text
