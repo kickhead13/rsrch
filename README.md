@@ -19,7 +19,8 @@ By default the search is done linearly by the program, but by adding the ```-p``
 in addition to there always being use for file finding programs for operating systems, `rsrch` provides an opportunity to combine some of my favorite chapters of computer science. Those being:
   - finite automata
   - multi-threading
-  - Rust
+  - Rust <br>
+
 Finite automata are a good match for the solution given by this program, since strings can be matched in linear time giving a blazingly fast runtime. The runtime is also aided by the multi-threading functionalities and optimized execution time of the Rust programming language.
 
 ## Run
