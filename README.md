@@ -7,7 +7,7 @@
     ```
   - file contents
     ```sh
-    $ rsrch name text
+    $ rsrch content text
     found in /home/user/Desktop/file at 0
     $ cat /home/user/Desktop/file
     text
