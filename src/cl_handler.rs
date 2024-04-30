@@ -14,7 +14,7 @@ pub fn print_help() -> () {
     println!("files that contain \'PATTERN\' within them.");
     println!();
     println!("OPTIONS:");
-    println!("   -h,  -help                              display this message");
+    println!("   -h,  --help                              display this message");
     println!("   -d,  --directory  <DIRECTORY_PATH=./>   sets the directory within");
     println!("                                           the program will search;");
     println!("                                           current directory by");
