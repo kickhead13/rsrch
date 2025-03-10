@@ -1,5 +1,6 @@
 static ALPHABET_LEN: usize = 128;
 
+#[derive(Clone)]
 pub struct Automata {   
     pub pattern_len: usize,
     pub delta: Vec<Vec<usize>>

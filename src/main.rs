@@ -14,7 +14,6 @@ use std::fs;
 static GLOBAL_THREAD_COUNT: AtomicUsize = AtomicUsize::new(0);
 
 fn main() {
-
     let (mode, pattern, directory_path, help_mess, parallelize) =
         cl_handler::handle_cl_args(std::env::args()
             .collect::<Vec<String>>()
@@ -30,7 +29,7 @@ fn main() {
             )
             .collect()
         );
-    
+    let automata = automata::Automata::new(pattern.to_string());
     if help_mess == true {
         cl_handler::print_help();
         std::process::exit(0);
@@ -43,7 +42,9 @@ fn main() {
             let num_cores = num_cpus::get();
             let dir_len = dir_list.len();
             let ratio = ((dir_len)/num_cores) + 1;
+            
             for _ in 0..(num_cores) {
+                let t_automata = automata::Automata::new(pattern.to_string());
                 let mut thread_dir_list: Vec<String> = Vec::<String>::new();
                 for _ in 0..(ratio) {
                     if dir_list.len() == 0 {
@@ -57,7 +58,7 @@ fn main() {
                 GLOBAL_THREAD_COUNT.fetch_add(1, Ordering::SeqCst);
                 let _ = std::thread::spawn( move || {
                     for dir in thread_dir_list {
-                        file_search::recursion_search(&mode, &dir, &pat);
+                        file_search::recursion_search(&t_automata, &mode, &dir, &pat);
                     }
                     GLOBAL_THREAD_COUNT.fetch_sub(1, Ordering::SeqCst);
                 });
@@ -69,12 +70,12 @@ fn main() {
         ) {
             for path in files {
                 if &mode == &cl_handler::ExecMode::Name {
-                    format_print(&pattern,&path, &path);
+                    format_print(&automata, &pattern,&path, &path);
                 } else if &mode == &cl_handler::ExecMode::Content {
                     if let Ok(file_content) = fs::read_to_string(
                         path.to_string()
                     ) {
-                        format_print(&pattern,&file_content, &path);
+                        format_print(&automata, &pattern,&file_content, &path);
                     }
                 }
             }
@@ -84,6 +85,6 @@ fn main() {
         }
         std::process::exit(0);
     }
-    file_search::recursion_search(&mode, &directory_path, &pattern);
+    file_search::recursion_search(&automata, &mode, &directory_path, &pattern);
 }
 

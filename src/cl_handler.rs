@@ -38,7 +38,7 @@ pub fn handle_cl_args(args: Vec<String>) -> (ExecMode, String, String, bool, boo
         if pos == 0 {
             if arg == "content" {
                 mode = ExecMode::Content;
-            } else {
+            } else if arg == "name"{
                 mode = ExecMode::Name;
             }
         } else {
@@ -48,6 +48,7 @@ pub fn handle_cl_args(args: Vec<String>) -> (ExecMode, String, String, bool, boo
                 parallelize = true;
             } else if last_arg == "-d" || last_arg == "--directory" {
                 directory_path = arg.to_string();
+                println!("{}", arg.to_string());
             } else if pattern_found == false && arg.to_string().starts_with("-") == false {
                 pattern_found = true;
                 pattern = arg.to_string();

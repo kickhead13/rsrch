@@ -1,6 +1,7 @@
 use std::fs;
 use crate::cl_handler::ExecMode;
 use crate::format_print;
+use crate::automata;
 
 #[derive(PartialEq)]
 pub enum FileType {
@@ -42,16 +43,16 @@ pub fn list_(mode: FileType, path: String) -> Option<Vec<String>> {
     return None;
 }
 
-pub fn recursion_search(mode: &ExecMode, path: &String, pattern: &String) -> () {
+pub fn recursion_search(automata: &automata::Automata, mode: &ExecMode, path: &String, pattern: &String) -> () {
     use FileType::{File,Directory};
 
     if let Some(file_paths) = list_(File, path.to_string()) {
         for path in file_paths.to_vec().iter() {
             if mode == &ExecMode::Name  {
-                format_print(&pattern, &path, &path);
+                format_print(&automata, &pattern, &path, &path);
             } else if mode == &ExecMode::Content {
                 if let Ok(file_content) = fs::read_to_string(path) {
-                    format_print(&pattern, &file_content, &path);
+                    format_print(&automata, &pattern, &file_content, &path);
                 }
             }
         }
@@ -61,9 +62,9 @@ pub fn recursion_search(mode: &ExecMode, path: &String, pattern: &String) -> () 
 
         for path in dir_paths.to_vec().iter() {
             if mode == &ExecMode::Name  {
-                format_print(&pattern, &path, &path);
+                format_print(&automata, &pattern, &path, &path);
             }
-            recursion_search(mode, path, pattern);
+            recursion_search(&automata, mode, path, pattern);
         }
     }
 }
